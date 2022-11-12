@@ -84,22 +84,33 @@
     ></script>
 
     <script>
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZmQyYWQ0YmUzZDAwMTU4NDYwMzgiLCJpYXQiOjE2NjgwODcwODIsImV4cCI6MTY2OTI5NjY4Mn0.VtbiHHI8R5YkZzRvBB0wBIO4SqtTZr10KGYVPHIVfOc",
+        },
+      };
+
       const eventId = new URLSearchParams(window.location.search).get("eventId");
       console.log("RESOURCE ID IS: " + eventId);
 
       window.onload = async () => {
-        const resp = await fetch("https://striveschool-api.herokuapp.com/api/agenda/" + eventId);
+        const resp = await fetch("https://striveschool-api.herokuapp.com/api/product/" + eventId, options);
         const eventObj = await resp.json();
+        console.log("the object looks like this: ", eventObj);
 
-        const { name, description, time, price, _id, createdAt, updatedAt } = eventObj;
+        const { name, description, brand, imageUrl, price, _id, createdAt, updatedAt } = eventObj;
 
         console.log(description);
 
         const container = document.getElementById("event-details");
 
         container.innerHTML = `<h1 class="display-4">${name}</h1>
-                        <p>${description}</p>
-                        <p class="text-monospace">${new Date(time).toLocaleString()}</p>
+                        <p>${brand}</p>
+                        <h3 class="mb-4">${description}€</h3>
+                        <img class="img-fluid image-details" src=${imageUrl}/>
                         <h3 class="mb-4">${price}€</h3>
                         <h6 class="bg-light py-3 pl-2">Server Details</h6>
                         <ul class="list-group list-group-flush">
