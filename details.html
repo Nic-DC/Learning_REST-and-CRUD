@@ -51,7 +51,7 @@
       <div class="row justify-content-center">
         <div class="col-md-10 col-lg-8">
           <h6>Event Details</h6>
-          <div id="event-details">
+          <div id="product-details">
             <div class="spinner-grow text-success" role="status">
               <span class="sr-only">Loading...</span>
             </div>
@@ -93,19 +93,17 @@
         },
       };
 
-      const eventId = new URLSearchParams(window.location.search).get("eventId");
-      console.log("RESOURCE ID IS: " + eventId);
+      const productId = new URLSearchParams(window.location.search).get("productId");
+      console.log("RESOURCE ID IS: " + productId);
 
       window.onload = async () => {
-        const resp = await fetch("https://striveschool-api.herokuapp.com/api/product/" + eventId, options);
-        const eventObj = await resp.json();
-        console.log("the object looks like this: ", eventObj);
+        const resp = await fetch("https://striveschool-api.herokuapp.com/api/product/" + productId, options);
+        const productObj = await resp.json();
+        console.log("the object looks like this: ", productObj);
 
-        const { name, description, brand, imageUrl, price, _id, createdAt, updatedAt } = eventObj;
+        const { name, description, brand, imageUrl, price, _id, createdAt, updatedAt } = productObj;
 
-        console.log(description);
-
-        const container = document.getElementById("event-details");
+        const container = document.getElementById("product-details");
 
         container.innerHTML = `<h1 class="display-4">${name}</h1>
                         <p>${brand}</p>
@@ -118,7 +116,7 @@
                             <li class="list-group-item pl-2"><strong>createdAt: </strong> ${createdAt}</li>
                             <li class="list-group-item pl-2"><strong>updatedAt: </strong> ${updatedAt}</li>
                         </ul>
-                        <a href="./backoffice.html?eventId=${eventId}"> <button class="btn btn-success">Edit Event</button></a>`;
+                        <a href="./backoffice.html?eventId=${productId}"> <button class="btn btn-success">Edit Event</button></a>`;
       };
     </script>
   </body>
