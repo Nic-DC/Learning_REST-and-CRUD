@@ -49,77 +49,77 @@
           <h2 class="mt-5 mb-3">Backoffice</h2>
           <form onsubmit="handleSubmit(event)">
             <div class="form-group">
-              <label for="name">Event Name</label>
+              <label for="name">Product Name</label>
               <input
                 type="text"
                 class="form-control"
                 id="name"
                 aria-describedby="name input"
-                placeholder="Insert the Event name"
+                placeholder="Insert the Product name"
                 required
               />
               <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                             else.</small> -->
             </div>
             <div class="form-group">
-              <label for="brand">Event Brand</label>
+              <label for="brand">Product Brand</label>
               <input
                 type="text"
                 class="form-control"
                 id="brand"
                 aria-describedby="brand input"
-                placeholder="Insert the Event brand"
+                placeholder="Insert the Product brand"
                 required
               />
             </div>
             <div class="form-group">
-              <label for="description">Event Details</label>
+              <label for="description">Product Details</label>
               <textarea
                 class="form-control"
                 name="description"
                 id="description"
                 rows="6"
-                placeholder="Add the Event description"
+                placeholder="Add the Product description"
                 required
               ></textarea>
             </div>
             <div class="form-group">
-              <label for="image">Event Image</label>
+              <label for="image">Product Image</label>
               <input
                 type="url"
                 class="form-control"
                 id="image"
                 aria-describedby="iamgeUrl input"
-                placeholder="Insert the Event image"
+                placeholder="Insert the Product image"
                 required
               />
             </div>
             <div class="form-group">
-              <label for="price">Event Price</label>
+              <label for="price">Product Price</label>
               <input
                 type="number"
                 class="form-control"
                 id="price"
                 aria-describedby="price input"
-                placeholder="Insert the Event price"
+                placeholder="Insert the Product price"
                 required
               />
             </div>
 
             <button type="reset" class="btn btn-link">Reset</button>
-            <button type="button" class="btn btn-primary" onclick="handleSubmit(event)">
+            <button type="button" class="btn btn-warning">
               <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-              Submit
+              <!-- Submit -->
             </button>
 
             <!-- THIS BUTTON IS TYPE "submit" SO IT WOULD WORK JUST AS IT IS, LIKE THE ABOVE Submit button -->
             <!-- <button type="submit" class="btn btn-primary">
-              <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+              <span  role="status" aria-hidden="true"></span>
               Submit
             </button> -->
 
             <!-- <button type="button" class="btn btn-danger d-none" onclick="handleDelete()"></button> -->
-            <button type="button" class="btn btn-danger" onclick="handleDelete()">
+            <button type="button" class="btn btn-danger d-none" onclick="handleDelete()">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -165,6 +165,20 @@
         : "https://striveschool-api.herokuapp.com/api/product/";
       const method = productId ? "PUT" : "POST";
 
+      // We change the CTA on the "submit" button
+      const submitBtn = document.querySelector(".btn-warning");
+      if (productId) {
+        submitBtn.innerHTML = `<button class="btn btn-warning" onclick="handleSubmit(event)">
+              <span role="status" aria-hidden="true"></span>
+              Edit Product
+            </button>`;
+      } else {
+        submitBtn.innerHTML = `<button type="button" class="btn btn-warning" onclick="handleSubmit(event)">
+              <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+              Add Product
+            </button>`;
+      }
+
       window.onload = async () => {
         if (productId) {
           const response = await fetch(endpoint, options);
@@ -179,7 +193,7 @@
           document.getElementById("image").value = imageUrl;
           document.getElementById("price").value = price;
 
-          // const deleteBtn = document.querySelector(".btn-danger").classList.remove("d-none");
+          const deleteBtn = document.querySelector(".btn-danger").classList.remove("d-none");
         }
       };
 
@@ -194,7 +208,8 @@
 
       // POST or PUT
       const handleSubmit = async (event) => {
-        console.log(event);
+        // the "Submit" button
+        console.log(event.target.innerText);
         event.preventDefault();
         isLoading(true);
         console.log("HEY FORM GOT SUBMITTED");
@@ -208,6 +223,7 @@
             price: document.getElementById("price").value,
           };
 
+          // based on the method, we either POST of PUT
           const response = await fetch(endpoint, {
             method: method,
             body: JSON.stringify(myProduct),
