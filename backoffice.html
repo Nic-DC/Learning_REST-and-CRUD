@@ -107,9 +107,9 @@
             </div>
 
             <button type="reset" class="btn btn-link">Reset</button>
-            <button type="button" class="btn btn-warning">
+            <button type="button" class="btn btn-warning" onclick="handleSubmit(event)">
               <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-              <!-- Submit -->
+              Submit
             </button>
 
             <!-- THIS BUTTON IS TYPE "submit" SO IT WOULD WORK JUST AS IT IS, LIKE THE ABOVE Submit button -->
@@ -166,18 +166,18 @@
       const method = productId ? "PUT" : "POST";
 
       // We change the CTA on the "submit" button
-      const submitBtn = document.querySelector(".btn-warning");
-      if (productId) {
-        submitBtn.innerHTML = `<button class="btn btn-warning" onclick="handleSubmit(event)">
-              <span role="status" aria-hidden="true"></span>
-              Edit Product
-            </button>`;
-      } else {
-        submitBtn.innerHTML = `<button type="button" class="btn btn-warning" onclick="handleSubmit(event)">
-              <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-              Add Product
-            </button>`;
-      }
+      // const submitBtn = document.querySelector(".btn-warning");
+      // if (productId) {
+      //   submitBtn.innerHTML = `<button class="btn btn-warning" onclick="handleSubmit(event)">
+      //         <span role="status" aria-hidden="true"></span>
+      //         Edit Product
+      //       </button>`;
+      // } else {
+      //   submitBtn.innerHTML = `<button type="button" class="btn btn-warning" onclick="handleSubmit(event)">
+      //         <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+      //         Add Product
+      //       </button>`;
+      // }
 
       window.onload = async () => {
         if (productId) {
